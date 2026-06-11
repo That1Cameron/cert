@@ -1,1 +1,13 @@
 ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBD9Fd+s+Z0lndGmEpDz+OfYvn6rGWhhEpwXPcbYP4c9oluHQ1toumLDYko2OXe0TLtBxeb7rTtgml/Y+m5qvl623H0d5I9lVk50cC4hEWCoopd8ehXnIDu4LBygeqbYgFw== rrintel\dwilkinson@cabal
+
+$xml = Get-Content C:\temp\filters.xml
+
+$matches = Select-String -Path C:\temp\filters.xml -Pattern '<name>.*Allow.*</name>'
+
+foreach ($match in $matches) {
+    $start = [Math]::Max(0, $match.LineNumber - 20)
+    $end   = [Math]::Min($xml.Count - 1, $match.LineNumber + 20)
+
+    $xml[$start..$end]
+    "`n-----------------------------`n"
+}
